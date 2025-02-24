@@ -49,7 +49,8 @@ export class TransactionController {
         try {
             return await this.transactionService.updateTransaction(
                 payload.id, 
-                payload.accountId, payload.dto
+                payload.accountId, 
+                payload.dto
             );
         }
         catch (e) {
@@ -59,10 +60,11 @@ export class TransactionController {
     @MessagePattern({ cmd: 'delete_transaction' })
     async deleteTransaction(@Payload() payload: { id: string; accountId: string }) {
         try {
-            return await this.transactionService.deleteTransaction(
+            await this.transactionService.deleteTransaction(
                 payload.id, 
                 payload.accountId
             );
+            return {message: "complete"};
         }
         catch (e) {
             return e
