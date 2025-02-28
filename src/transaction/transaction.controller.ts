@@ -37,7 +37,7 @@ export class TransactionController {
             Logger.log(payload, "payload");
             Logger.log("Creating transaction");
             const res = await this.transactionService.createTransaction(payload);
-            Logger.log("Creation finished");
+            Logger.log(res,"Creation finished");
             return res;
         }
         catch (e) {

@@ -32,11 +32,13 @@ export class TransactionService {
         return await this.transactionRepository.save(transaction);
     }
 
-    async deleteTransaction(id: string, accountId: string): Promise<void> {
+    async deleteTransaction(id: string, accountId: string): Promise<any> {
         const result = await this.transactionRepository.delete({ id, accountId });
+        Logger.log(result, "deleted result");
         if (result.affected === 0) {
             throw new NotFoundException(`Transaction with ID ${id} not found`);
         }
+        return id;
     }
 
     async getTransactions(accountId: string, page: number, limit: number) {
