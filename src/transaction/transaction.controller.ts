@@ -8,6 +8,7 @@ export class TransactionController {
     }
     @MessagePattern({ cmd: 'get_transactions' })
     async getTransactions(@Payload() payload: { accountId: string, page: number, limit: number }) {
+        
         try {
             return await this.transactionService.getTransactions(
                 payload.accountId,
@@ -34,10 +35,7 @@ export class TransactionController {
     @MessagePattern({ cmd: 'create_transaction' })
     async createTransaction(@Payload() payload: { accountId: string, amount: number, description?: string, transactionDate: Date, currency: string }){
         try {
-            Logger.log(payload, "payload");
-            Logger.log("Creating transaction");
             const res = await this.transactionService.createTransaction(payload);
-            Logger.log(res,"Creation finished");
             return res;
         }
         catch (e) {

@@ -20,9 +20,7 @@ export class TransactionService {
     }
 
     async createTransaction(dto: { accountId: string, amount: number, description?: string, transactionDate: Date }): Promise<Transaction> {
-        Logger.log(dto);
         const transaction = this.transactionRepository.create(dto);
-        Logger.log(transaction);
         return await this.transactionRepository.save(transaction);
     }
 
@@ -34,7 +32,6 @@ export class TransactionService {
 
     async deleteTransaction(id: string, accountId: string): Promise<any> {
         const result = await this.transactionRepository.delete({ id, accountId });
-        Logger.log(result, "deleted result");
         if (result.affected === 0) {
             throw new NotFoundException(`Transaction with ID ${id} not found`);
         }
@@ -50,7 +47,6 @@ export class TransactionService {
             skip: (page - 1) * limit,
             take: limit,
         });
-
         return { transactions, total, page, limit };
     }
 }
